@@ -9,7 +9,10 @@ export async function generateNewTopic(difficulty: string, recentTopics: string[
 
     const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash",
-        generationConfig: { responseMimeType: "application/json" }
+        generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.9,
+        }
     });
 
     const isArabic = language === 'ar';
@@ -22,13 +25,14 @@ export async function generateNewTopic(difficulty: string, recentTopics: string[
   2. DO NOT use colors in the topic name unless it is intrinsic (e.g., "Redwood Tree").
   3. Topics must be specific, tangible objects or well-known concepts.
   4. DO NOT REPEAT any of these recently used topics: ${recentTopics.join(", ")}.
-  5. The topic must be DIFFERENT and VARIANT from the list above. Be creative.
-  ${isArabic ? '6. EVERYTHING must be in Arabic script.' : ''}
+  5. The topic must be DIFFERENT and MULTI-DIMENSIONAL from the list above. Be creative.
+  6. Avoid repetitive categories. If the list has tech, try nature. If it has nature, try architecture or mythology.
+  ${isArabic ? '7. EVERYTHING must be in Arabic script.' : ''}
 
   GUIDELINES:
-  - If difficulty is "easy": Pick common, distinct household items or retro tech (e.g., "Toaster", "Skateboard", "Vinyl Record", "Cactus", "Espresso").
-  - If difficulty is "medium": Pick broader concepts or slightly less common objects (e.g., "Nostalgia", "Satellite", "Polaroid", "Bonsai").
-  - If difficulty is "hard": Pick abstract concepts or very specific niche items (e.g., "Entropy", "Quantum", "Synthesizer").
+  - If difficulty is "easy": Pick common, distinct household items, retro tech, or iconic foods (e.g., "Toaster", "Skateboard", "Vinyl Record", "Cactus", "Sushi").
+  - If difficulty is "medium": Pick broader concepts, slightly less common objects, or specialized tools (e.g., "Nostalgia", "Satellite", "Polaroid", "Bonsai", "Sextant").
+  - If difficulty is "hard": Pick abstract concepts, obscure historical items, or very specific scientific/niche terms (e.g., "Entropy", "Astrolabe", "Synthesizer", "Bioluminescence", "Tesseract").
 
   Return a JSON object with strictly ONE topic and THREE distractors (the distractors should also be distinct and plausible):
   {
@@ -58,6 +62,9 @@ export async function generateBotBanter(topic: string, botName: string, botStyle
     const isArabic = language === 'ar';
     const model = genAI.getGenerativeModel({
         model: "gemini-2.0-flash",
+        generationConfig: {
+            temperature: 1.0,
+        },
         systemInstruction: `You are ${botName} in a cozy isometric room.
     Target Topic: "${topic}" (provided in ${isArabic ? 'Arabic' : 'English'})
     Your Personality: ${botStyle}
@@ -69,14 +76,15 @@ export async function generateBotBanter(topic: string, botName: string, botStyle
     STRICT CONSTRAINTS:
     1. MAX 4 WORDS per message (or equivalent in Arabic). Keep it extremely short.
     2. NO abstract philosophy unless difficulty is "hard".
-    3. Conversational but distinct.
+    3. Conversational but distinct. Use varied phrasing.
+    4. AVOID starting hints with "It's a...", "This is...", or "It has...". Start with verbs or vibes.
     
     DIFFICULTY ADJUSTMENT:
     - Easy: Describe physical traits or common uses directly.
     - Medium: Use analogies or vibes.
     - Hard: Be cryptic.
 
-    CONTEXT (Do not repeat these):
+    CONTEXT (Do not repeat these exact phrasings or ideas):
     ${context.join("\n")}
     `,
     });

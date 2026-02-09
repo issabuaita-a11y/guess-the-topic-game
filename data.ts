@@ -50,6 +50,50 @@ export const TOPICS: Topic[] = [
       "Not for hugging.",
       "Slow growing, prickly friend."
     ]
+  },
+  {
+    id: 't5',
+    label: 'Polaroid Camera',
+    hints: [
+      "Instant memories.",
+      "Shake it while it develops.",
+      "Analog photo magic.",
+      "Square white borders.",
+      "Click, whirr, and out it comes."
+    ]
+  },
+  {
+    id: 't6',
+    label: 'Baking Soda',
+    hints: [
+      "White powdery cleaner.",
+      "Makes bread rise.",
+      "Reacts with vinegar.",
+      "Absorbs fridge smells.",
+      "A kitchen staple."
+    ]
+  },
+  {
+    id: 't7',
+    label: 'Paperclip',
+    hints: [
+      "Keeping it all together.",
+      "Metal wire loop.",
+      "Office supply classic.",
+      "Easily bent into shapes.",
+      "Temporary binding."
+    ]
+  },
+  {
+    id: 't8',
+    label: 'Hummingbird',
+    hints: [
+      "Hovering in place.",
+      "Rapidly beating wings.",
+      "Tiny nectar seeker.",
+      "Bright, iridescent feathers.",
+      "Faster than your eye can follow."
+    ]
   }
 ];
 

@@ -41,6 +41,29 @@ export const useGameEngine = () => {
   const lastBotIndexRef = useRef<number>(-1);
   const generatedHintsRef = useRef<string[]>([]);
 
+  // Load persistence on mount
+  useEffect(() => {
+    const saved = localStorage.getItem('guess-the-topic-played');
+    if (saved) {
+      try {
+        const topics = JSON.parse(saved);
+        if (Array.isArray(topics)) {
+          // Keep a sliding window of the last 100 topics
+          const window = topics.slice(-100);
+          playedTopicsRef.current = new Set(window);
+        }
+      } catch (e) {
+        console.error("Failed to load played topics", e);
+      }
+    }
+  }, []);
+
+  const persistTopics = (topic: string) => {
+    playedTopicsRef.current.add(topic);
+    const topics = Array.from(playedTopicsRef.current).slice(-100);
+    localStorage.setItem('guess-the-topic-played', JSON.stringify(topics));
+  };
+
   const clearAllTimeouts = () => {
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
@@ -63,7 +86,7 @@ export const useGameEngine = () => {
     if (!aiData) return null;
 
     const correctTopic: Topic = { id: `ai-${Date.now()}`, label: aiData.label, hints: [] };
-    playedTopicsRef.current.add(aiData.label);
+    persistTopics(aiData.label);
 
     const distractors = aiData.distractors.slice(0, 3);
     const options: Topic[] = [
@@ -91,8 +114,10 @@ export const useGameEngine = () => {
           ...distractors.map((d, i) => ({ id: `dist-${i}-${Date.now()}`, label: d, hints: [] }))
         ].sort(() => 0.5 - Math.random());
         setNextTopicData({ topic: correctTopic, options, difficulty });
-        playedTopicsRef.current.add(aiData.label);
+        persistTopics(aiData.label);
       }
+    } catch (e) {
+      console.error("Prefetch error", e);
     } finally {
       prefetchInProgressRef.current = false;
     }
@@ -143,12 +168,12 @@ export const useGameEngine = () => {
     const startTime = Date.now();
 
     // Weighted logic for repeating vs new hints
-    // If we have less than 2 hints, always try to get a new one
-    // If we have hints, 40% chance to repeat an old one for consistency
+    // Reduced chance to repeat if we have enough hints
     let textToShow = "";
     const existingHints = generatedHintsRef.current;
 
-    if (existingHints.length >= 2 && Math.random() < 0.4) {
+    // 20% chance to repeat (was 40%), and only if we have at least 3 hints
+    if (existingHints.length >= 3 && Math.random() < 0.2) {
       textToShow = existingHints[Math.floor(Math.random() * existingHints.length)];
     } else {
       const aiText = await aiCall;
@@ -238,7 +263,7 @@ export const useGameEngine = () => {
       const availableTopics = TOPICS.filter(t => !playedTopicsRef.current.has(t.label));
       const source = availableTopics.length > 0 ? availableTopics : TOPICS;
       newTopic = source[Math.floor(Math.random() * source.length)];
-      playedTopicsRef.current.add(newTopic.label);
+      persistTopics(newTopic.label);
 
       const others = TOPICS.filter(t => t.id !== newTopic.id);
       options = [...others.sort(() => 0.5 - Math.random()).slice(0, 3), newTopic].sort(() => 0.5 - Math.random());
@@ -289,8 +314,7 @@ export const useGameEngine = () => {
   }, []);
 
   const startGame = useCallback(() => {
-    // Reset history on new game
-    playedTopicsRef.current.clear();
+    // DO NOT CLEAR history on new game anymore, let it persist
     setNextTopicData(null);
     prefetchInProgressRef.current = false;
     lastBotIndexRef.current = -1;
