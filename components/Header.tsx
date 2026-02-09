@@ -14,7 +14,11 @@ export const Header: React.FC<HeaderProps> = ({ timeLeft, score, round, badges =
   const isAr = language === 'ar';
 
   return (
-    <header className="h-16 sm:h-20 bg-white border-b-4 sm:border-b-8 border-purple-300 flex items-center justify-between px-2 sm:px-8 relative z-20 shadow-md" dir={isAr ? 'rtl' : 'ltr'}>
+    <header
+      className="h-16 sm:h-20 bg-white border-b-4 sm:border-b-8 border-purple-300 flex items-center justify-between px-2 sm:px-8 relative z-20 shadow-md"
+      dir={isAr ? 'rtl' : 'ltr'}
+      data-language={language}
+    >
 
       {/* Left HUD (Right in RTL) */}
       <div className="flex items-center gap-4 sm:gap-8">

@@ -15,7 +15,11 @@ export const ResultModal: React.FC<ResultModalProps> = ({ gameState, onNext }) =
   if (!result) return null;
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-purple-900/60 backdrop-blur-sm" dir={isAr ? 'rtl' : 'ltr'}>
+    <div
+      className="absolute inset-0 z-50 flex items-center justify-center p-4 bg-purple-900/60 backdrop-blur-sm"
+      dir={isAr ? 'rtl' : 'ltr'}
+      data-language={gameState.language}
+    >
       <div className="bg-white border-8 border-purple-900 rounded-[2rem] p-8 w-full max-w-lg text-center shadow-[12px_12px_0_0_rgba(0,0,0,0.2)] animate-in zoom-in duration-300">
 
         <div className="flex justify-center mb-6">

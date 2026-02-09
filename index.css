@@ -1,9 +1,11 @@
 /* Responsive Viewport Fixes */
 :root {
-  --header-height: 5rem; /* h-20 */
+  --header-height: 5rem;
+  /* h-20 */
 }
 
-html, body {
+html,
+body {
   height: 100%;
   height: -webkit-fill-available;
   margin: 0;
@@ -35,9 +37,11 @@ body {
 .pixel-scrollbar::-webkit-scrollbar {
   width: 8px;
 }
+
 .pixel-scrollbar::-webkit-scrollbar-track {
   background: #f3e8ff;
 }
+
 .pixel-scrollbar::-webkit-scrollbar-thumb {
   background: #c084fc;
   border: 2px solid #f3e8ff;
@@ -54,4 +58,57 @@ body {
 * {
   image-rendering: pixelated;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Arabic Font Scale */
+[data-language="ar"],
+[dir="rtl"] {
+  font-size: 1.15rem;
+  /* Increase base scale for Arabic */
+}
+
+[data-language="ar"] .font-pixel,
+[dir="rtl"] .font-pixel {
+  font-size: 1.25em;
+}
+
+[data-language="ar"] .text-xs,
+[dir="rtl"] .text-xs {
+  font-size: 0.85rem;
+}
+
+[data-language="ar"] .text-sm,
+[dir="rtl"] .text-sm {
+  font-size: 1rem;
+}
+
+[data-language="ar"] h1,
+[dir="rtl"] h1 {
+  font-size: 1.6em;
+}
+
+[data-language="ar"] .btn,
+[data-language="ar"] button {
+  font-size: 1.2rem;
+}
+
+/* Adjust tracking for Arabic since pixel fonts don't apply */
+[data-language="ar"] .tracking-tighter,
+[data-language="ar"] .tracking-widest {
+  letter-spacing: normal !important;
+  line-height: 1.4;
+}
+
+[data-language="ar"] .text-\[10px\] {
+  font-size: 0.9rem !important;
+}
+
+[data-language="ar"] .font-sans.text-sm,
+[dir="rtl"] .font-sans.text-sm {
+  font-size: 1.1rem !important;
+}
+
+[data-language="ar"] .font-pixel {
+  font-weight: normal;
+  /* Pixel fonts can look weird if bold */
 }

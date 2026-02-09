@@ -20,23 +20,24 @@ export async function generateNewTopic(difficulty: string, recentTopics: string[
   Language: "${isArabic ? 'Arabic' : 'English'}"
 
   CRITICAL RULES:
-  1. DO NOT generate generic "Adjective Noun" pairs like "Red Apple", "Blue Ball", "Green Tree".
-  2. DO NOT use colors in the topic name unless it is intrinsic (e.g., "Redwood Tree").
-  3. Topics must be specific, tangible objects or well-known concepts.
-  4. DO NOT REPEAT any of these recently used topics: ${recentTopics.join(", ")}.
-  5. The topic must be DIFFERENT and MULTI-DIMENSIONAL from the list above. Be creative.
-  6. Avoid repetitive categories. If the list has tech, try nature. If it has nature, try architecture or mythology.
-  ${isArabic ? '7. EVERYTHING must be in Arabic script.' : ''}
+  1. TOPIC MUST BE EXACTLY ONE WORD. NO EXCEPTIONS.
+  2. DO NOT generate generic "Adjective Noun" pairs like "Red Apple", "Blue Ball", "Green Tree".
+  3. DO NOT use colors in the topic name unless it is intrinsic (e.g., "Redwood").
+  4. Topics must be specific, tangible objects or well-known concepts.
+  5. DO NOT REPEAT any of these recently used topics: ${recentTopics.join(", ")}.
+  6. The topic must be DIFFERENT and MULTI-DIMENSIONAL from the list above. Be creative.
+  7. Avoid repetitive categories. If the list has tech, try nature. If it has nature, try architecture or mythology.
+  ${isArabic ? '8. EVERYTHING must be in Arabic script.' : ''}
 
   GUIDELINES:
-  - If difficulty is "easy": Pick common, distinct household items, retro tech, or iconic foods (e.g., "Toaster", "Skateboard", "Vinyl Record", "Cactus", "Sushi").
+  - If difficulty is "easy": Pick common, distinct household items, retro tech, or iconic foods (e.g., "Toaster", "Skateboard", "Cactus", "Sushi").
   - If difficulty is "medium": Pick broader concepts, slightly less common objects, or specialized tools (e.g., "Nostalgia", "Satellite", "Polaroid", "Bonsai", "Sextant").
   - If difficulty is "hard": Pick abstract concepts, obscure historical items, or very specific scientific/niche terms (e.g., "Entropy", "Astrolabe", "Synthesizer", "Bioluminescence", "Tesseract").
 
-  Return a JSON object with strictly ONE topic and THREE distractors (the distractors should also be distinct and plausible):
+  Return a JSON object with strictly ONE word topic and THREE one word distractors (the distractors should also be distinct and plausible):
   {
-    "label": "The Topic Name (in ${isArabic ? 'Arabic' : 'English'})",
-    "distractors": ["Wrong Topic 1", "Wrong Topic 2", "Wrong Topic 3"] (all in ${isArabic ? 'Arabic' : 'English'})
+    "label": "SingleWordTopic (in ${isArabic ? 'Arabic' : 'English'})",
+    "distractors": ["WrongWord1", "WrongWord2", "WrongWord3"] (all in ${isArabic ? 'Arabic' : 'English'})
   }`;
 
     // 1. Try OpenAI First

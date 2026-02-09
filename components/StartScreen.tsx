@@ -37,7 +37,11 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart, onLanguageCha
   const isAr = currentLanguage === 'ar';
 
   return (
-    <div className={`h-dvh flex flex-col items-center justify-center p-6 bg-purple-200 relative overflow-hidden font-vt323 px-4 ${isAr ? 'rtl' : 'ltr'}`} dir={isAr ? 'rtl' : 'ltr'}>
+    <div
+      className={`h-dvh flex flex-col items-center justify-center p-6 bg-purple-200 relative overflow-hidden font-vt323 px-4 ${isAr ? 'rtl' : 'ltr'}`}
+      dir={isAr ? 'rtl' : 'ltr'}
+      data-language={currentLanguage}
+    >
       {/* Animated Pattern Background */}
       <div className="absolute inset-0 opacity-30 pointer-events-none"
         style={{

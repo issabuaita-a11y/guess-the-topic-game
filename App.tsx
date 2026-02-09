@@ -27,16 +27,25 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="h-dvh w-full flex flex-col items-center justify-center bg-purple-100 font-pixel text-purple-900">
+      <div
+        className="h-dvh w-full flex flex-col items-center justify-center bg-purple-100 font-pixel text-purple-900"
+        data-language={gameState.language}
+      >
         <div className="w-16 h-16 border-8 border-purple-400 border-t-purple-600 rounded-full animate-spin mb-6 shadow-lg"></div>
-        <p className="animate-pulse tracking-[0.3em] text-[10px] uppercase">Generating Topic...</p>
+        <p className="animate-pulse tracking-[0.3em] text-[10px] uppercase">
+          {gameState.language === 'ar' ? 'جاري إنشاء الموضوع...' : 'Generating Topic...'}
+        </p>
       </div>
     );
   }
 
 
   return (
-    <div className="h-dvh w-full flex flex-col bg-purple-200 overflow-hidden relative font-vt323">
+    <div
+      className="h-dvh w-full flex flex-col bg-purple-200 overflow-hidden relative font-vt323"
+      data-language={gameState.language}
+      dir={gameState.language === 'ar' ? 'rtl' : 'ltr'}
+    >
 
       <Header
         timeLeft={gameState.timeLeft}
