@@ -1,0 +1,5 @@
+{
+  "name": "Guess the Topic",
+  "description": "A social deduction game where you observe bots chatting to infer the hidden topic.",
+  "requestFramePermissions": []
+}
