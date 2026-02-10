@@ -94,7 +94,7 @@ export async function generateBotBanter(topic: string, botName: string, botStyle
     OBJECTIVE: Give a hint about the topic without saying it. Respond ONLY in ${isArabic ? 'Arabic' : 'English'}.
 
     STRICT CONSTRAINTS:
-    1. MAX 4 WORDS per message (or equivalent in Arabic). Keep it extremely short.
+    1. MAX 2 WORDS per message (or equivalent in Arabic). Keep it extremely short.
     2. NO abstract philosophy unless difficulty is "hard".
     3. Conversational but distinct. Use varied phrasing.
     4. AVOID starting hints with "It's a...", "This is...", or "It has...". Start with verbs or vibes.

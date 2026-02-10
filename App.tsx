@@ -6,6 +6,7 @@ import { Header } from './components/Header';
 import { StartScreen } from './components/StartScreen';
 import { DifficultyScreen } from './components/DifficultyScreen';
 import { ResultModal } from './components/ResultModal';
+import { AwardModal } from './components/AwardModal';
 import { GamePhase } from './types';
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
     startGame,
     handleGuess,
     nextRound,
-    setLanguage
+    setLanguage,
+    closeAward
   } = useGameEngine();
 
 
@@ -52,6 +54,7 @@ function App() {
         score={gameState.score}
         round={gameState.round}
         badges={gameState.badges}
+        lives={gameState.lives}
         language={gameState.language}
       />
 
@@ -69,7 +72,14 @@ function App() {
       />
 
       {gameState.phase === GamePhase.ROUND_OVER && (
-        <ResultModal gameState={gameState} onNext={nextRound} />
+        <ResultModal
+          gameState={gameState}
+          onNext={gameState.lives === 0 ? startGame : nextRound}
+        />
+      )}
+
+      {gameState.showingAward && (
+        <AwardModal gameState={gameState} onContinue={closeAward} />
       )}
     </div>
   );

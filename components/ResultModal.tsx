@@ -43,20 +43,10 @@ export const ResultModal: React.FC<ResultModalProps> = ({ gameState, onNext }) =
         <h2 className={`text-3xl text-purple-900 mb-4 tracking-tighter uppercase ${isAr ? 'font-sans font-bold' : 'font-pixel'}`}>
           {result === 'win'
             ? (isAr ? 'إجابة صحيحة!' : 'CORRECT!')
-            : (isAr ? 'انتهت اللعبة' : 'GAME OVER')}
+            : (gameState.lives === 0 ? (isAr ? 'انتهت اللعبة' : 'GAME OVER') : (isAr ? 'إجابة خاطئة' : 'WRONG GUESS'))}
         </h2>
 
-        {/* Badge Unlocked Notification */}
-        {result === 'win' && gameState.round === 5 && (
-          <div className={`mb-4 animate-bounce bg-yellow-100 border-2 border-yellow-400 p-2 rounded-lg text-yellow-800 tracking-wider ${isAr ? 'font-sans font-bold text-sm' : 'font-pixel text-xs'}`}>
-            🏆 {isAr ? 'وسام جديد: تم فتح محقق مبتدئ!' : 'NEW BADGE: NOVICE DETECTIVE UNLOCKED!'}
-          </div>
-        )}
-        {result === 'win' && gameState.round === 13 && (
-          <div className={`mb-4 animate-bounce bg-yellow-100 border-2 border-yellow-400 p-2 rounded-lg text-yellow-800 tracking-wider ${isAr ? 'font-sans font-bold text-sm' : 'font-pixel text-xs'}`}>
-            🏆 {isAr ? 'وسام جديد: تم فتح محقق محترف!' : 'NEW BADGE: PRO DETECTIVE UNLOCKED!'}
-          </div>
-        )}
+
 
         <div className="mb-8 bg-purple-50 rounded-2xl p-6 border-4 border-purple-100 flex flex-col items-center justify-center min-h-[140px]">
           <p className={`text-purple-400 mb-2 uppercase opacity-60 tracking-widest ${isAr ? 'font-sans font-bold text-xs' : 'font-pixel text-[10px]'}`}>
@@ -73,7 +63,11 @@ export const ResultModal: React.FC<ResultModalProps> = ({ gameState, onNext }) =
           onClick={onNext}
           className={`group w-full py-5 bg-purple-600 hover:bg-purple-500 text-white text-lg rounded-xl shadow-[0_8px_0_0_#581c87] active:shadow-none active:translate-y-2 transition-all uppercase tracking-widest flex items-center justify-center gap-2 ${isAr ? 'font-sans font-bold' : 'font-pixel'}`}
         >
-          {isAr ? 'الجولة التالية' : 'NEXT ROUND'} <ChevronRight className={`w-6 h-6 group-hover:translate-x-1 transition-transform ${isAr ? 'rotate-180' : ''}`} />
+          {gameState.lives === 0
+            ? (isAr ? 'العودة للقائمة' : 'RETURN TO MENU')
+            : (isAr ? 'الجولة التالية' : 'NEXT ROUND')
+          }
+          <ChevronRight className={`w-6 h-6 group-hover:translate-x-1 transition-transform ${isAr ? 'rotate-180' : ''}`} />
         </button>
       </div>
     </div>

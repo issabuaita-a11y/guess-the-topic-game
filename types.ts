@@ -42,4 +42,6 @@ export interface GameState {
   isTyping: string[]; // List of bot IDs currently "typing"
   lastResult: 'win' | 'loss' | 'timeout' | null;
   badges: string[];
+  lives: number;
+  showingAward: string | null;
 }

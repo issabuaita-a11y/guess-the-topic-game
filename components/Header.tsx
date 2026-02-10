@@ -6,10 +6,11 @@ interface HeaderProps {
   score: number;
   round: number;
   badges?: string[];
+  lives: number;
   language: 'en' | 'ar';
 }
 
-export const Header: React.FC<HeaderProps> = ({ timeLeft, score, round, badges = [], language }) => {
+export const Header: React.FC<HeaderProps> = ({ timeLeft, score, round, badges = [], lives, language }) => {
   const isUrgent = timeLeft <= 10;
   const isAr = language === 'ar';
 
@@ -43,24 +44,13 @@ export const Header: React.FC<HeaderProps> = ({ timeLeft, score, round, badges =
         </div>
       </div>
 
-      {/* Center Badges */}
-      <div className="hidden md:flex gap-2 absolute left-1/2 transform -translate-x-1/2">
-        {/* Placeholder slots for badges */}
-        {['DETECTIVE_NOVICE', 'DETECTIVE_PRO', 'DETECTIVE_MASTER'].map((badge) => {
-          const hasBadge = (badges || []).includes(badge);
-          let icon = '';
-          if (badge === 'DETECTIVE_NOVICE') icon = '🥉';
-          if (badge === 'DETECTIVE_PRO') icon = '🥈';
-          if (badge === 'DETECTIVE_MASTER') icon = '🥇';
-
-          return (
-            <div key={badge} className={`w-10 h-10 flex items-center justify-center border-2 rounded-lg 
-                ${hasBadge ? 'bg-yellow-100 border-yellow-400 opacity-100 scale-110' : 'bg-gray-100 border-gray-200 opacity-30'}
-             `}>
-              <span className="text-xl">{icon}</span>
-            </div>
-          )
-        })}
+      {/* Lives (Hearts) - Moved to Center/Leftish */}
+      <div className="flex items-center gap-1 absolute left-1/2 transform -translate-x-1/2 bg-red-50 px-3 py-1 rounded-full border-2 border-red-200">
+        {[...Array(5)].map((_, i) => (
+          <span key={i} className={`transition-all duration-500 text-xl ${i < lives ? 'scale-100 opacity-100' : 'scale-75 opacity-20 grayscale'}`}>
+            ❤️
+          </span>
+        ))}
       </div>
 
       {/* Timer HUD */}

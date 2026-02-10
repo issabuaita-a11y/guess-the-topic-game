@@ -50,21 +50,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart, onLanguageCha
         }}>
       </div>
 
-      {/* Language Toggle */}
-      <div className="absolute top-6 right-6 z-50 flex gap-2">
-        <button
-          onClick={() => onLanguageChange('en')}
-          className={`px-3 py-1 border-2 border-purple-900 font-pixel text-[10px] transition-all ${currentLanguage === 'en' ? 'bg-purple-900 text-white' : 'bg-white text-purple-900 hover:bg-purple-100'}`}
-        >
-          EN
-        </button>
-        <button
-          onClick={() => onLanguageChange('ar')}
-          className={`px-3 py-1 border-2 border-purple-900 font-pixel text-[10px] transition-all ${currentLanguage === 'ar' ? 'bg-purple-900 text-white' : 'bg-white text-purple-900 hover:bg-purple-100'}`}
-        >
-          عربي
-        </button>
-      </div>
+      {/* Language Toggle Removed from Top Right */}
 
       <div className="max-w-3xl w-full text-center space-y-6 sm:space-y-12 relative z-10 px-2 sm:px-0">
         <div className="space-y-2 sm:space-y-4">
@@ -102,12 +88,30 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart, onLanguageCha
           </div>
         </div>
 
-        <button
-          onClick={onStart}
-          className={`w-full sm:w-auto px-8 sm:px-16 py-4 sm:py-6 bg-yellow-400 hover:bg-yellow-300 text-purple-900 text-xl sm:text-2xl border-2 sm:border-4 border-purple-900 shadow-[4px_4px_0_0_#581c87] sm:shadow-[8px_8px_0_0_#581c87] hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_#581c87] transition-all active:translate-y-1 uppercase ${isAr ? 'font-sans font-bold' : 'font-pixel'}`}
-        >
-          {t.start}
-        </button>
+        <div className="flex flex-col items-center gap-4 w-full sm:w-auto">
+          {/* Language Toggle Inline */}
+          <div className="flex gap-4 mb-2">
+            <button
+              onClick={() => onLanguageChange('en')}
+              className={`px-6 py-2 border-4 border-purple-900 font-pixel text-xl shadow-[4px_4px_0_0_#581c87] transition-all active:translate-y-1 active:shadow-none ${currentLanguage === 'en' ? 'bg-purple-900 text-white' : 'bg-white text-purple-900 hover:bg-purple-50'}`}
+            >
+              ENGLISH
+            </button>
+            <button
+              onClick={() => onLanguageChange('ar')}
+              className={`px-6 py-2 border-4 border-purple-900 font-sans font-bold text-xl shadow-[4px_4px_0_0_#581c87] transition-all active:translate-y-1 active:shadow-none ${currentLanguage === 'ar' ? 'bg-purple-900 text-white' : 'bg-white text-purple-900 hover:bg-purple-50'}`}
+            >
+              العربية
+            </button>
+          </div>
+
+          <button
+            onClick={onStart}
+            className={`w-full sm:w-auto px-8 sm:px-16 py-4 sm:py-6 bg-yellow-400 hover:bg-yellow-300 text-purple-900 text-xl sm:text-2xl border-2 sm:border-4 border-purple-900 shadow-[4px_4px_0_0_#581c87] sm:shadow-[8px_8px_0_0_#581c87] hover:translate-y-0.5 hover:shadow-[2px_2px_0_0_#581c87] transition-all active:translate-y-1 uppercase ${isAr ? 'font-sans font-bold' : 'font-pixel'}`}
+          >
+            {t.start}
+          </button>
+        </div>
       </div>
     </div>
   );
