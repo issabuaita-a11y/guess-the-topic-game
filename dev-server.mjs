@@ -36,24 +36,24 @@ app.post('/generate-topic', async (req, res) => {
   Language: "${isArabic ? 'Arabic' : 'English'}"
 
   CRITICAL RULES:
-  1. TOPIC MUST BE EXACTLY ONE WORD. NO EXCEPTIONS.
+  1. Keep topics SHORT - 1-2 words maximum.
   2. DO NOT generate generic "Adjective Noun" pairs like "Red Apple", "Blue Ball", "Green Tree".
   3. DO NOT use colors in the topic name unless it is intrinsic (e.g., "Redwood").
   4. Topics must be specific, tangible objects or well-known concepts.
   5. DO NOT REPEAT any of these recently used topics: ${recentTopics.join(", ")}.
-  6. The topic must be DIFFERENT and MULTI-DIMENSIONAL from the list above. Be creative.
-  7. Avoid repetitive categories. If the list has tech, try nature. If it has nature, try architecture or mythology.
+  6. The topic must be DIFFERENT from the list above. Be creative but accessible.
+  7. Avoid repetitive categories. If the list has tech, try nature. If it has nature, try food or household items.
   ${isArabic ? '8. EVERYTHING must be in Arabic script.' : ''}
 
-  GUIDELINES:
-  - If difficulty is "easy": Pick common, distinct household items, retro tech, or iconic foods (e.g., "Toaster", "Skateboard", "Cactus", "Sushi").
-  - If difficulty is "medium": Pick broader concepts, slightly less common objects, or specialized tools (e.g., "Nostalgia", "Satellite", "Polaroid", "Bonsai", "Sextant").
-  - If difficulty is "hard": Pick abstract concepts, obscure historical items, or very specific scientific/niche terms (e.g., "Entropy", "Astrolabe", "Synthesizer", "Bioluminescence", "Tesseract").
+  DIFFICULTY GUIDELINES (VERY IMPORTANT):
+  - If difficulty is "easy": Pick EXTREMELY COMMON everyday items that a 5-year-old would know. Examples: "Chair", "Spoon", "Apple", "Car", "Book", "Cup", "Door", "Window", "Ball", "Shoe". Keep it SIMPLE.
+  - If difficulty is "medium": Pick common items or well-known objects (e.g., "Guitar", "Camera", "Bicycle", "Pizza", "Laptop", "Backpack").
+  - If difficulty is "hard": Pick less common or abstract concepts (e.g., "Telescope", "Compass", "Parachute", "Microscope", "Antenna").
 
-  Return a JSON object with strictly ONE word topic and THREE one word distractors (the distractors should also be distinct and plausible):
+  Return a JSON object with a SHORT topic (1-2 words) and THREE short distractors (same length, distinct and plausible):
   {
-    "label": "SingleWordTopic (in ${isArabic ? 'Arabic' : 'English'})",
-    "distractors": ["WrongWord1", "WrongWord2", "WrongWord3"] (all in ${isArabic ? 'Arabic' : 'English'})
+    "label": "TopicName (in ${isArabic ? 'Arabic' : 'English'})",
+    "distractors": ["Wrong1", "Wrong2", "Wrong3"] (all in ${isArabic ? 'Arabic' : 'English'})
   }`;
 
     // Try OpenAI first
